@@ -106,10 +106,10 @@ const REVIEWS = [
 ];
 
 const NEWS = [
-  { id: 1, date: "03.05.2026", tag: "Обновление", title: "Wrath of the Lich King 3.3.5b — фикс Испытания Крестоносца", text: "Исправлен ряд критических ошибок в рейде ICC. Обновлены дроп-таблицы Lich King нормал." },
-  { id: 2, date: "01.05.2026", tag: "Новость", title: "The Burning Crusade: сезон 4 PvP начался", text: "На серверах Burning Crusade стартовал 4-й PvP сезон. Новые сеты, рейтинговая арена и обновлённые награды." },
-  { id: 3, date: "28.04.2026", tag: "Патч", title: "Classic WoW: Пустоши Силитуса — полная реализация", text: "Контент Силитуса теперь полностью реализован: квесты, ивенты и хаки из оригинального 1.12.1." },
-  { id: 4, date: "25.04.2026", tag: "Ивент", title: "День Детей — праздничный ивент на всех серверах", text: "С 25 апреля по 10 мая на всех серверах активны праздничные квесты с уникальными наградами." },
+  { id: 1, date: "03.05.2026", tag: "Обновление", title: "Wrath of the Lich King 3.3.5b — фикс Испытания Крестоносца", text: "Исправлен ряд критических ошибок в рейде ICC. Обновлены дроп-таблицы Lich King нормал.", img: "https://cdn.poehali.dev/projects/9644d04b-7abf-4c44-9349-f01e10069539/files/0e6144f3-acff-4efe-b5c3-9135209d957e.jpg" },
+  { id: 2, date: "01.05.2026", tag: "Новость", title: "The Burning Crusade: сезон 4 PvP начался", text: "На серверах Burning Crusade стартовал 4-й PvP сезон. Новые сеты, рейтинговая арена и обновлённые награды.", img: "https://cdn.poehali.dev/projects/9644d04b-7abf-4c44-9349-f01e10069539/files/4ebe43d1-a98c-4dff-bae6-2036fc324f04.jpg" },
+  { id: 3, date: "28.04.2026", tag: "Патч", title: "Classic WoW: Пустоши Силитуса — полная реализация", text: "Контент Силитуса теперь полностью реализован: квесты, ивенты и хаки из оригинального 1.12.1.", img: "https://cdn.poehali.dev/projects/9644d04b-7abf-4c44-9349-f01e10069539/files/653a700a-cb49-4057-9768-9a431bbd0c20.jpg" },
+  { id: 4, date: "25.04.2026", tag: "Ивент", title: "День Детей — праздничный ивент на всех серверах", text: "С 25 апреля по 10 мая на всех серверах активны праздничные квесты с уникальными наградами.", img: "https://cdn.poehali.dev/projects/9644d04b-7abf-4c44-9349-f01e10069539/files/9c44f2c0-d909-4403-8550-bded5fcf2bb9.jpg" },
 ];
 
 const VACANCIES = [
@@ -502,13 +502,19 @@ export default function Index() {
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   {NEWS.slice(0, 2).map(n => (
-                    <div key={n.id} className="cyber-card p-5 cursor-pointer group">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="cyber-badge badge-expansion">{n.tag}</span>
-                        <span className="text-xs text-gray-500 font-mono">{n.date}</span>
+                    <div key={n.id} className="cyber-card overflow-hidden cursor-pointer group">
+                      <div className="relative h-40 overflow-hidden">
+                        <img src={n.img} alt={n.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" />
+                        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,13,26,1) 0%, rgba(13,13,26,0.2) 100%)" }} />
+                        <div className="absolute top-3 left-3 flex items-center gap-2">
+                          <span className={`cyber-badge ${n.tag === "Патч" ? "badge-pvp" : n.tag === "Ивент" ? "badge-pve" : "badge-expansion"}`}>{n.tag}</span>
+                          <span className="text-xs text-gray-400 font-mono">{n.date}</span>
+                        </div>
                       </div>
-                      <h3 className="font-oswald text-lg text-white group-hover:text-neon-cyan transition-colors uppercase mb-2">{n.title}</h3>
-                      <p className="text-gray-400 text-sm leading-relaxed">{n.text}</p>
+                      <div className="p-4">
+                        <h3 className="font-oswald text-base text-white group-hover:text-neon-cyan transition-colors uppercase mb-1 leading-snug">{n.title}</h3>
+                        <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">{n.text}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -705,16 +711,23 @@ export default function Index() {
             <h1 className="section-title text-4xl text-white mb-8">Новости и патчи</h1>
             <div className="grid gap-4">
               {NEWS.map(n => (
-                <div key={n.id} className="cyber-card p-6 cursor-pointer group">
-                  <div className="flex flex-wrap items-center gap-3 mb-3">
-                    <span className={`cyber-badge ${n.tag === "Патч" ? "badge-pvp" : n.tag === "Ивент" ? "badge-pve" : "badge-expansion"}`}>{n.tag}</span>
-                    <span className="text-xs text-gray-500 font-mono">{n.date}</span>
+                <div key={n.id} className="cyber-card overflow-hidden cursor-pointer group flex flex-col md:flex-row">
+                  <div className="relative md:w-64 shrink-0 h-44 md:h-auto overflow-hidden">
+                    <img src={n.img} alt={n.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent 60%, rgba(13,13,26,0.9) 100%)" }} />
+                    <div className="md:hidden absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,13,26,1) 0%, transparent 60%)" }} />
                   </div>
-                  <h3 className="font-oswald text-xl text-white group-hover:text-neon-cyan transition-colors uppercase mb-2">{n.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{n.text}</p>
-                  <button className="mt-4 text-neon-cyan text-sm font-mono flex items-center gap-1 hover:gap-2 transition-all">
-                    Читать далее <Icon name="ArrowRight" size={14} />
-                  </button>
+                  <div className="p-5 flex flex-col justify-center">
+                    <div className="flex flex-wrap items-center gap-3 mb-3">
+                      <span className={`cyber-badge ${n.tag === "Патч" ? "badge-pvp" : n.tag === "Ивент" ? "badge-pve" : "badge-expansion"}`}>{n.tag}</span>
+                      <span className="text-xs text-gray-500 font-mono">{n.date}</span>
+                    </div>
+                    <h3 className="font-oswald text-xl text-white group-hover:text-neon-cyan transition-colors uppercase mb-2">{n.title}</h3>
+                    <p className="text-gray-400 leading-relaxed">{n.text}</p>
+                    <button className="mt-4 text-neon-cyan text-sm font-mono flex items-center gap-1 hover:gap-2 transition-all w-fit">
+                      Читать далее <Icon name="ArrowRight" size={14} />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
