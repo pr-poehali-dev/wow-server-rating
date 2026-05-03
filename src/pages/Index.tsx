@@ -100,7 +100,7 @@ export default function Index() {
             <div className="w-9 h-9 rounded overflow-hidden border border-neon-cyan/30">
               <img src={LOGO_IMG} alt="logo" className="w-full h-full object-cover" />
             </div>
-            <span className="font-oswald text-xl tracking-widest uppercase neon-text-cyan">WoW<span className="text-white">Рейтинг</span></span>
+            <span className="font-oswald text-xl tracking-widest uppercase neon-text-cyan">WOW-TOPS<span className="text-white">.SU</span></span>
           </div>
 
           <div className="hidden md:flex items-center gap-6">
@@ -435,7 +435,7 @@ export default function Index() {
         <footer className="border-t border-dark-border mt-16">
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <span className="font-oswald text-lg tracking-widest neon-text-cyan">WoW<span className="text-white">Рейтинг</span></span>
+              <span className="font-oswald text-lg tracking-widest neon-text-cyan">WOW-TOPS<span className="text-white">.SU</span></span>
               <div className="flex gap-6 flex-wrap justify-center">
                 {navItems.map(item => (
                   <button key={item.id} onClick={() => setSection(item.id)}
