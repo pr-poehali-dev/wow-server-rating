@@ -122,6 +122,60 @@ const VACANCIES = [
 type Section = "home" | "servers" | "reviews" | "news" | "vacancies" | "contacts";
 type Server = typeof SERVERS[0];
 
+// ——— Рекламный баннер-заглушка ———
+function AdBanner({ size = "horizontal" }: { size?: "horizontal" | "square" }) {
+  const isHorizontal = size === "horizontal";
+  return (
+    <div
+      className="relative overflow-hidden rounded cursor-pointer group"
+      style={{
+        height: isHorizontal ? 90 : 250,
+        background: "linear-gradient(135deg, rgba(13,13,26,0.95) 0%, rgba(20,10,35,0.95) 100%)",
+        border: "1px dashed rgba(191,64,255,0.35)",
+      }}
+    >
+      {/* Угловые декоры */}
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-neon-purple opacity-60" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-neon-purple opacity-60" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-neon-purple opacity-60" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-neon-purple opacity-60" />
+
+      {/* Фоновая сетка */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: "linear-gradient(rgba(191,64,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(191,64,255,0.03) 1px, transparent 1px)",
+        backgroundSize: "24px 24px",
+      }} />
+
+      {/* Контент */}
+      <div className={`absolute inset-0 flex items-center ${isHorizontal ? "flex-row gap-4 px-6" : "flex-col gap-3 justify-center"}`}>
+        <div className="w-10 h-10 rounded flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
+          style={{ background: "rgba(191,64,255,0.12)", border: "1px solid rgba(191,64,255,0.4)", boxShadow: "0 0 15px rgba(191,64,255,0.2)" }}>
+          <Icon name="Megaphone" size={18} style={{ color: "#bf40ff" }} />
+        </div>
+        <div className={isHorizontal ? "" : "text-center"}>
+          <div className="font-oswald text-white uppercase tracking-wider text-sm group-hover:text-neon-purple transition-colors">
+            Ваша реклама здесь
+          </div>
+          <div className="font-mono text-xs text-gray-500 mt-0.5">
+            Разместить баннер → <span className="text-neon-purple">admin@wow-tops.su</span>
+          </div>
+        </div>
+        {isHorizontal && (
+          <div className="ml-auto shrink-0">
+            <div className="neon-btn neon-btn-purple px-4 py-1.5 text-xs rounded font-oswald uppercase tracking-wider">
+              Разместить
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Pulse эффект */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: "radial-gradient(ellipse at center, rgba(191,64,255,0.04) 0%, transparent 70%)" }} />
+    </div>
+  );
+}
+
 // ——— Страница обзора сервера ———
 function ServerReview({ server, onBack }: { server: Server; onBack: () => void }) {
   const [activeScreenshot, setActiveScreenshot] = useState(0);
@@ -177,6 +231,9 @@ function ServerReview({ server, onBack }: { server: Server; onBack: () => void }
               ))}
             </div>
           </div>
+
+          {/* Баннер #3 — на странице обзора */}
+          <AdBanner size="horizontal" />
 
           {/* Видео */}
           <div className="cyber-card p-6">
@@ -429,6 +486,10 @@ export default function Index() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {SERVERS.slice(0, 3).map((s, i) => <ServerCard key={s.id} server={s} rank={i + 1} onReview={openReview} />)}
               </div>
+              {/* Баннер #1 — под топ серверов */}
+              <div className="mt-6">
+                <AdBanner size="horizontal" />
+              </div>
             </section>
 
             <section className="border-t border-dark-border">
@@ -575,7 +636,17 @@ export default function Index() {
                 <div className="ml-auto text-xs text-gray-500 font-mono">Найдено: {filteredServers.length} серверов</div>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredServers.map((s, i) => <ServerCard key={s.id} server={s} rank={i + 1} onReview={openReview} />)}
+                {filteredServers.map((s, i) => (
+                  <>
+                    <ServerCard key={s.id} server={s} rank={i + 1} onReview={openReview} />
+                    {/* Баннер #2 — после каждых 3 карточек */}
+                    {(i + 1) % 3 === 0 && i !== filteredServers.length - 1 && (
+                      <div key={`ad-${i}`} className="md:col-span-2 lg:col-span-3">
+                        <AdBanner size="horizontal" />
+                      </div>
+                    )}
+                  </>
+                ))}
               </div>
             </div>
           )
