@@ -454,6 +454,85 @@ export default function Index() {
               </div>
             </section>
 
+            {/* ===== ПОЧЕМУ МЫ ===== */}
+            <section className="border-t border-dark-border">
+              <div className="max-w-7xl mx-auto px-4 py-20">
+                <div className="text-center mb-14">
+                  <div className="font-mono text-neon-cyan text-xs tracking-[0.3em] mb-3 uppercase">// Наши принципы</div>
+                  <h2 className="font-oswald text-4xl md:text-5xl text-white uppercase mb-4">Почему именно мы?</h2>
+                  <p className="text-gray-400 max-w-2xl mx-auto text-lg">Мы не продаём места в топе. Каждый сервер в рейтинге заслужил своё место честно.</p>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    {
+                      icon: "Vote",
+                      color: "cyan",
+                      title: "Рейтинг от игроков",
+                      desc: "Позиция сервера определяется исключительно голосами реальных игроков. Никаких платных мест и накрученных рейтингов.",
+                    },
+                    {
+                      icon: "ShieldCheck",
+                      color: "green",
+                      title: "Честная модерация",
+                      desc: "Каждый сервер проверяется вручную перед добавлением. Фейки, мошенники и серверы с агрессивным P2W отклоняются.",
+                    },
+                    {
+                      icon: "Trash2",
+                      color: "red",
+                      title: "Неактивные удаляются",
+                      desc: "Серверы с нулевым онлайном или недоступным сайтом автоматически убираются из рейтинга. Только живые проекты.",
+                    },
+                    {
+                      icon: "RefreshCw",
+                      color: "purple",
+                      title: "Обновление в реальном времени",
+                      desc: "Онлайн, рейтинг и статус серверов обновляются круглосуточно. Вы всегда видите актуальную картину.",
+                    },
+                    {
+                      icon: "MessageCircle",
+                      color: "cyan",
+                      title: "Реальные отзывы",
+                      desc: "Отзывы проходят проверку на дубли и спам. Мы удаляем заказные комментарии и накрутки от владельцев серверов.",
+                    },
+                    {
+                      icon: "Eye",
+                      color: "gold",
+                      title: "Полная прозрачность",
+                      desc: "Мы публикуем критерии оценки, правила модерации и методологию расчёта рейтинга. Никаких скрытых алгоритмов.",
+                    },
+                  ].map((item) => {
+                    const borderColor = item.color === "cyan" ? "rgba(0,229,255,0.25)" : item.color === "green" ? "rgba(0,255,136,0.25)" : item.color === "red" ? "rgba(255,80,80,0.25)" : item.color === "purple" ? "rgba(191,64,255,0.25)" : "rgba(255,215,0,0.25)";
+                    const iconColor = item.color === "cyan" ? "#00e5ff" : item.color === "green" ? "#00ff88" : item.color === "red" ? "#ff5050" : item.color === "purple" ? "#bf40ff" : "#ffd700";
+                    const glowColor = item.color === "cyan" ? "rgba(0,229,255,0.15)" : item.color === "green" ? "rgba(0,255,136,0.15)" : item.color === "red" ? "rgba(255,80,80,0.15)" : item.color === "purple" ? "rgba(191,64,255,0.15)" : "rgba(255,215,0,0.15)";
+                    return (
+                      <div key={item.title} className="cyber-card p-6 group hover:scale-[1.02] transition-transform duration-300" style={{ borderColor }}>
+                        <div className="w-12 h-12 rounded mb-4 flex items-center justify-center" style={{ background: glowColor, border: `1px solid ${borderColor}`, boxShadow: `0 0 20px ${glowColor}` }}>
+                          <Icon name={item.icon as "Eye"} size={22} style={{ color: iconColor }} />
+                        </div>
+                        <h3 className="font-oswald text-lg uppercase mb-2" style={{ color: iconColor }}>{item.title}</h3>
+                        <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Нижняя плашка */}
+                <div className="mt-10 cyber-card p-6 flex flex-col md:flex-row items-center gap-6 neon-border-cyan">
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(0,229,255,0.1)", border: "1px solid rgba(0,229,255,0.4)" }}>
+                    <Icon name="Trophy" size={26} style={{ color: "#00e5ff" }} />
+                  </div>
+                  <div className="text-center md:text-left">
+                    <h3 className="font-oswald text-xl text-white uppercase mb-1">Проверено сообществом с 2019 года</h3>
+                    <p className="text-gray-400 text-sm">Более 8 000 отзывов, 47 000 активных игроков и 128 серверов — WOW-TOPS.SU это крупнейший независимый рейтинг WoW серверов на русском языке.</p>
+                  </div>
+                  <div className="flex gap-6 shrink-0 text-center">
+                    <div><div className="font-oswald text-2xl neon-text-cyan">99%</div><div className="text-xs text-gray-500">честных отзывов</div></div>
+                    <div><div className="font-oswald text-2xl neon-text-cyan">24/7</div><div className="text-xs text-gray-500">мониторинг</div></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             <section className="border-t border-dark-border">
               <div className="max-w-7xl mx-auto px-4 py-16 text-center">
                 <h2 className="font-oswald text-4xl text-white uppercase mb-4">Управляешь сервером?</h2>
